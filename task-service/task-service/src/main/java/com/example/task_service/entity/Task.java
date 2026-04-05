@@ -4,6 +4,9 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
 import jakarta.persistence.Version;
+import jakarta.validation.constraints.NotBlank;
+
+import java.time.LocalDateTime;
 
 @Entity
 public class Task {
@@ -11,13 +14,16 @@ public class Task {
     @Id
     @GeneratedValue
     private Long id;
-
+    @NotBlank
     private String title;
+    @NotBlank
     private String description;
     private String status;
-
+    private LocalDateTime createdAt;
+    private LocalDateTime updatedAt;
     private String createdBy;
-
+    @Version
+    private Integer version;
     public String getCreatedBy() {
         return createdBy;
     }
@@ -65,7 +71,21 @@ public class Task {
     public void setVersion(Integer version) {
         this.version = version;
     }
+    public LocalDateTime getCreatedAt() {
+        return createdAt;
+    }
 
-    @Version
-    private Integer version;
+    public LocalDateTime getUpdatedAt() {
+        return updatedAt;
+    }
+
+    public void setUpdatedAt(LocalDateTime updatedAt) {
+        this.updatedAt = updatedAt;
+    }
+
+    public void setCreatedAt(LocalDateTime createdAt) {
+        this.createdAt = createdAt;
+    }
+
+
 }

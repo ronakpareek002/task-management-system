@@ -1,7 +1,6 @@
 package com.example.auth_service.entity;
 
 import jakarta.persistence.*;
-import lombok.Data;
 
 @Entity
 @Table(name = "users")

@@ -2,7 +2,7 @@ package com.example.task_service.controller;
 
 import com.example.task_service.entity.Task;
 import com.example.task_service.service.TaskService;
-import lombok.RequiredArgsConstructor;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -37,7 +37,7 @@ public class TaskController {
     }
 
     @PostMapping
-    public Task create(@RequestBody Task t,
+    public Task create(@Valid @RequestBody Task t,
                        @RequestHeader("username") String user) {
         return service.create(t, user);
     }

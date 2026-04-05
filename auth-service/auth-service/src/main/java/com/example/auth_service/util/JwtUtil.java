@@ -18,12 +18,12 @@ public class JwtUtil {
         return Keys.hmacShaKeyFor(secret.getBytes());
     }
 
-    public String generateToken(String username, String role, long expiry) {
-        return Jwts.builder()
+    public String generateToken(String username, String role) {
+        return io.jsonwebtoken.Jwts.builder()
                 .setSubject(username)
                 .claim("role", role)
-                .setIssuedAt(new Date())
-                .setExpiration(new Date(System.currentTimeMillis() + expiry))
+                .setIssuedAt(new java.util.Date())
+                .setExpiration(new java.util.Date(System.currentTimeMillis() + 1000 * 60 * 10))
                 .signWith(getKey())
                 .compact();
     }

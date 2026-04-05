@@ -12,7 +12,7 @@ import reactor.core.publisher.Mono;
 @Component
 public class JwtFilter implements GlobalFilter {
 
-    private final String secret = "secret123";
+    private final String secret = "12345678901234567890123456789012";
 
     @Override
     public Mono<Void> filter(ServerWebExchange exchange,
@@ -41,11 +41,13 @@ public class JwtFilter implements GlobalFilter {
         String username = claims.getSubject();
         String role = claims.get("role", String.class);
 
-        exchange.getRequest().mutate()
-                .header("username", username)
-                .header("role", role)
+        ServerWebExchange modifiedExchange = exchange.mutate()
+                .request(exchange.getRequest().mutate()
+                        .header("username", username)
+                        .header("role", role)
+                        .build())
                 .build();
 
-        return chain.filter(exchange);
+        return chain.filter(modifiedExchange);
     }
 }
